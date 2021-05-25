@@ -1,0 +1,155 @@
+body 
+{
+    margin:0;
+    padding:0;
+    background-image: url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/background.png");
+	font-family: Verdana, Tahoma, sans-serif;
+	font-size: 8pt;	
+}
+
+#Banner
+{	  
+    background-image: url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/banner.png");
+    text-align: center;
+    /*The top of the page is an image banner. The center of this banner is banner.png. Behind this banner
+bannerbg.png repeats horizontally across the length of the page. Each image is 50px tall. (Hint: To make the banner
+stretch to the edges of the page, use the bannerbg.png as the background image of a block element that is behind banner.png.)
+ background-repeat:url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/bannerbg.png");
+
+    */
+
+}
+
+#MovieDesp
+{
+	font-size: 24pt;
+    font-family:Tahoma, Verdana, sans-serif;
+	text-align: center;
+	font-weight: bold;
+    text-shadow: 3px 3px #999999;
+}
+
+#ContentArea
+{
+	margin-left: auto;
+    margin-right: auto;
+	width: 800px;
+	border: 4px solid grey;
+	border-radius: 20px;
+	position: relative;	
+	overflow: hidden;
+}
+
+#LeftSection
+{
+    width:550px;
+    position:relative;
+    float:left;
+    /*
+    Behind this the image rbg.png repeats horizontally across the entire
+length of the section. */
+}
+
+#Overview
+{
+    width:250px;
+    float:right;
+    background-color:#A2B964;
+}
+
+#TextDesp
+{
+    font-family:"Arial";
+    padding:10px;
+    padding-top:0px;
+
+}
+
+
+
+.StyleBold
+{
+	font-weight: bold;
+    padding-top:5px;
+}
+
+
+#RottenAlign
+{
+    background-image:url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/rottenbig.png");
+    font-size: 48pt;
+    color: red;
+    font-weight: bold;
+    height: 83px;
+    vertical-align: bottom;
+	
+}
+
+#RottenAlign img
+{
+    float: left;
+    margin-right: 5px;
+}
+
+.ReviewColumn
+{
+    width: 47%;
+    float: left;
+    margin-left: 2%;
+}
+
+.Review
+{
+    font-size: 8pt;
+    background-color: #E8DC9B;
+    font-weight: bold;
+    border: 2px solid grey;
+    border-radius: 10px;
+    padding: 8px;
+    overflow: hidden;
+    position: relative;
+
+}
+
+.ReviewerInfo
+{
+    padding-top: 5px;
+    padding-bottom: 20px;
+    
+}
+
+.ReviewerInfo span
+{
+    font-style: italic;
+}
+
+#ReviewCounts
+{
+    background-color:#A2B964;
+    padding:5px;
+    position: absolute;
+	bottom:-128px;
+	width: 550px;
+	text-align: center;
+	
+}
+p img
+{ 
+	padding-right: 5px;
+	float: left;
+	
+}
+
+#Position
+{
+    position: fixed;
+    right:0;
+    bottom:0;
+}
+
+.Style
+{
+    opacity: 0.5;   
+}
+
+

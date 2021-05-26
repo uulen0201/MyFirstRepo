@@ -3,14 +3,14 @@ body
     margin:0;
     padding:0;
     background-repeat: repeat;
-    background-image: url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/background.png");
+    background-image: url("https://raw.githubusercontent.com/uulen0201/MyFirstRepo/main/Movie%20review/images/background.png");
 	font-family: Verdana, Tahoma, sans-serif;
 	font-size: 8pt;	
 }
 
 #Banner
 {	  
-    background-image: url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/bannerbg.png");
+    background-image: url("https://raw.githubusercontent.com/uulen0201/MyFirstRepo/main/Movie%20review/images/bannerbg.png");
     background-repeat: repeat-x;
     text-align: center;
     align-items: center;
@@ -71,7 +71,7 @@ body
 
 #RottenAlign
 {
-    background-image:url("https://raw.githubusercontent.com/uulen0201/CS472/main/Movie%20review/images/rbg.png");
+    background-image:url("https://raw.githubusercontent.com/uulen0201/MyFirstRepo/main/Movie%20review/images/rbg.png");
     font-size: 48pt;
     color: red;
     font-weight: bold;

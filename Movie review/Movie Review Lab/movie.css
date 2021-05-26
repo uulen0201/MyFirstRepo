@@ -43,8 +43,8 @@ stretch to the edges of the page, use the bannerbg.png as the background image o
 #LeftSection
 {
     width:550px;
-    position:relative;
-    float:left;
+    border-top-left-radius: 15px;
+    overflow:auto;
     /*
     Behind this the image rbg.png repeats horizontally across the entire
 length of the section. */

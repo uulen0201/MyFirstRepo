@@ -13,6 +13,6 @@ function createAccount(){
     modAccount(pAccountName, pBalance);
 
     var log = document.getElementById("log").innerHTML;
-    log = log + "\n" + "Account name: " + pAccountName + "  Balance: " + pBalance;
+    log = log + "Account name: " + pAccountName + "  Balance: " + pBalance + "\n";
     document.getElementById("log").innerHTML = log;
 }

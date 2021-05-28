@@ -1,0 +1,4 @@
+1.JavaScript Module Pattern
+
+Module can help us do less and accoplish more by organizing the functions more efficiently and safely. 
+Once we know how things work in small functions, it would more secure and private.

@@ -1,0 +1,43 @@
+
+.heading{
+    font-weight: 300;
+    font-size: 56px;
+    text-align: center;
+    border-bottom:5px solid black;
+    padding-bottom: 25px;
+
+
+}
+
+#original {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        padding-bottom: 20px;
+    
+
+}
+
+
+.main-heading{
+    background-color: #D5D049;
+    margin: 100px;
+    padding: 10px;
+    border-bottom: solid black;
+    border-top: solid black;
+}
+
+#buttons{
+    font-weight: 300;
+    font-size: 56px;
+    margin-bottom: 5px;
+    margin-left: 400px;
+    margin-bottom: 100px;
+}
+
+
+
+
+
+
+

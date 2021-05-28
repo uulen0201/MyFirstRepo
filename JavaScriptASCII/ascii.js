@@ -1,6 +1,7 @@
 var timer = null;
 var frame =0;
 var arrayAnim = null;
+
 function btnStart(){
     if(timer == null)
         timer = setInterval(anim, 250);

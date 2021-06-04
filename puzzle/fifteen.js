@@ -1,214 +1,199 @@
-var garray = [];
-var init = function() {
-    var puzzleArea = document.getElementById('puzzlearea');
-    var divs = puzzleArea.getElementsByTagName("div");
-    garray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];  
-    // initialize each piece
-    for (var i=0; i< divs.length; i++) {
-        var div = divs[i];
-        
-        // calculate x and y for this piece
-        var x = ((i % 4) * 100) ;
-        var y = (Math.floor(i / 4) * 100) ;
+var puzzleSizeX = 400;
+var puzzleSizeY = 400;
+var pieceX = 100;
+var pieceY = 100;
+var wbX = puzzleSizeX - pieceX;
+var wbY = puzzleSizeY - pieceY;
 
-        // set basic style and background
-        div.className = "puzzlepiece";
-        div.style.left = x + 'px';
-        div.style.top = y + 'px';
-        div.style.backgroundImage = 'url("background.jpg")';
-        div.style.backgroundPosition = -x + 'px ' + (-y) + 'px';
-        
-        // store x and y for later
-        div.x = x;
-        div.y = y; 
-        
-    }   
-};
+var specialPositions;
 
 $(document).ready(function(){
-    init();
-    markAvailSlot();
-   /* $(".puzzlepiece").hover(function(){
-        $(this)
-    });*/
-    $("#shufflebutton").click(function(){
-        random();
-        markAvailSlot();
-    })
+	$("#puzzlearea div").addClass("puzzlepiece");
+	refreshPositions();
 
-    $("div.puzzlepiece").each(function(i){
-        $(this).click(function(){
-            moveToAvailSlot(i+1);
-            markAvailSlot();
-        });
-        
-    });
+	$("#puzzlearea div").each(function(idx){
+		var piecenumber = idx;//$(this).text();
+		var posX = ((piecenumber)*pieceX)%puzzleSizeX;
+		var posY = (parseInt((piecenumber)/(puzzleSizeY/pieceY)))*pieceY;
+
+		setPosition($(this), {posX, posY}, true);
+	});
+
+	$("#shufflebutton").click(function(){
+		//shuffle();
+		var timer = setInterval(shuffle,10);
+		setTimeout(function(){
+			clearTimeout(timer);
+			showMovables();
+		},1000);
+		
+	});
+	
 });
 
-var random = function() {
-    garray = shuffle(garray);
-    var puzzleArea = document.getElementById('puzzlearea');
-    var divs = puzzleArea.getElementsByTagName("div");
-    // initialize each piece
+function setPosition(element, position, changebg){
+	var bgX = -position.posX;
+	var bgY = -position.posY;
 
-    for (var i=0; i< divs.length; i++) {
-        var div = divs[i];
-        
-        // calculate x and y for this piece
-        var x = (((garray[i]-1) % 4) * 100) ;
-        var y = (Math.floor((garray[i]-1) / 4) * 100) ;
-        
-        var tx = ((i % 4) * 100) ;
-        var ty = (Math.floor(i / 4) * 100) ;
-        // set basic style and background
-        div.style.left = x + 'px';
-        div.style.top = y + 'px';
-        div.style.backgroundPosition = -tx + 'px ' + (-ty) + 'px';
-        // store x and y for later
-        div.x = x;
-        div.y = y; 
-    }        
-};
+	element.css("left", position.posX);
+	element.css("top", position.posY);
 
-function shuffle(array) {
-    var currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  };
-  function findPost(pvalue){
-    var puzzleArea = document.getElementById('puzzlearea');
-    var divs = puzzleArea.getElementsByTagName("div");
-    for (var i=0; i< garray.length; i++) {
-        if(garray[i] === pvalue){
-            return i+1;
-        } 
-    }
-  };
-  function moveToAvailSlot(idx){
-    var emptySlotIndex = garray[15];
-    let idxx = findPost(idx)-1;
-    
-    var puzzleArea = document.getElementById('puzzlearea');
-    var divs = puzzleArea.getElementsByTagName("div");
+	if(changebg){
+		element.css("background-position-x", bgX);
+		element.css("background-position-y", bgY);
+	}
+}
 
-    var x = (((emptySlotIndex-1) % 4) * 100) ;
-    var y = (Math.floor((emptySlotIndex-1) / 4) * 100) ;
-    var div = divs[findPost(idx)-1];
-    var tx = ((idx % 4) * 100) ;
-    var ty = (Math.floor(idx / 4) * 100) ;
-    // set basic style and background
-    div.style.left = x + 'px';
-    div.style.top = y + 'px';
-    div.style.backgroundPosition = -tx + 'px ' + (-ty) + 'px';
-    // store x and y for later
-    div.x = x;
-    div.y = y; 
-    garray[15] = garray[idxx];
-    garray[idxx] = emptySlotIndex;
-  }
-  function markAvailSlot(){
-    var emptyIndex = garray[15]; //
-   
-    var puzzleArea = document.getElementById('puzzlearea');
-    var divs = puzzleArea.getElementsByTagName("div");
-    for (var i=1; i<= divs.length; i++) {
-        $("#div" + i).removeClass("movablepiece"); 
-    }
-    switch(emptyIndex){
-        case 16: 
-            $("#div" + findPost(15)).addClass("movablepiece"); 
-            $("#div" + findPost(12)).addClass("movablepiece"); 
-        break;
-        case 15: 
-            $("#div" + findPost(11)).addClass("movablepiece"); 
-            $("#div" + findPost(14)).addClass("movablepiece");  
-            $("#div" + findPost(16)).addClass("movablepiece");  
-        break;
-        case 14: 
-            $("#div" + findPost(13)).addClass("movablepiece"); 
-            $("#div" + findPost(15)).addClass("movablepiece");  
-            $("#div" + findPost(10)).addClass("movablepiece");  
-        break;
-        case 13: 
-            $("#div" + findPost(14)).addClass("movablepiece"); 
-            $("#div" + findPost(9)).addClass("movablepiece");  
-        break;
+function setWBPosition(position){
+	wbX = position.posX;
+	wbY = position.posY;
+}
 
-        case 12: 
-            $("#div" + findPost(8)).addClass("movablepiece"); 
-            $("#div" + findPost(11)).addClass("movablepiece"); 
-            $("#div" + findPost(16)).addClass("movablepiece"); 
-        break;
-        case 11: 
-            $("#div" + findPost(7)).addClass("movablepiece"); 
-            $("#div" + findPost(10)).addClass("movablepiece");  
-            $("#div" + findPost(12)).addClass("movablepiece");  
-            $("#div" + findPost(15)).addClass("movablepiece");  
-        break;
-        case 10: 
-            $("#div" + findPost(6)).addClass("movablepiece"); 
-            $("#div" + findPost(9)).addClass("movablepiece");  
-            $("#div" + findPost(11)).addClass("movablepiece");  
-            $("#div" + findPost(14)).addClass("movablepiece");  
-        break;
-        case 9: 
-            $("#div" + findPost(5)).addClass("movablepiece"); 
-            $("#div" + findPost(10)).addClass("movablepiece");  
-            $("#div" + findPost(13)).addClass("movablepiece");
-        break;
+function getElement(position){
+	var found = null;
+	$("#puzzlearea div").each(function(idx){
+		
+		//console.log( parseInt($(this).css("top")) + "==" + position.posY + ", " + parseInt($(this).css("left")) + "==" +  position.posX);
+		if(parseInt($(this).css("top")) == parseInt(position.posY) && parseInt($(this).css("left")) == parseInt(position.posX)){
+			found = $(this);
+			return false;
+		}
+	});
+	return found;
+}
 
-        case 8: 
-            $("#div" + findPost(4)).addClass("movablepiece"); 
-            $("#div" + findPost(7)).addClass("movablepiece"); 
-            $("#div" + findPost(12)).addClass("movablepiece"); 
-        break;
-        case 7: 
-            $("#div" + findPost(3)).addClass("movablepiece"); 
-            $("#div" + findPost(6)).addClass("movablepiece");  
-            $("#div" + findPost(8)).addClass("movablepiece");  
-            $("#div" + findPost(11)).addClass("movablepiece"); 
-        break;
-        case 6: 
-            $("#div" + findPost(2)).addClass("movablepiece"); 
-            $("#div" + findPost(5)).addClass("movablepiece");  
-            $("#div" + findPost(7)).addClass("movablepiece");  
-            $("#div" + findPost(10)).addClass("movablepiece");  
-        break;
-        case 5: 
-            $("#div" + findPost(1)).addClass("movablepiece"); 
-            $("#div" + findPost(6)).addClass("movablepiece");  
-            $("#div" + findPost(9)).addClass("movablepiece");  
-        break;
+function refreshPositions(){
+	wbX = parseInt(wbX);
+	wbY = parseInt(wbY);
+	var left = {posX: wbX-pieceX, posY: wbY};
+	var right = {posX: wbX+pieceX, posY: wbY};
+	var above = {posX: wbX, posY: wbY-pieceY};
+	var below = {posX: wbX, posY: wbY+pieceY};
+	specialPositions = {
+		top_left: [right, below ],		//right, below
+		top_right: [left, below ],		//left, below
+		bottom_right: [left, above ],		//left, above
+		bottom_left: [right, above ],		//right, above
+		right: [left, above, below ],		//left, above, below
+		left: [right, above, below ],		//right, above, below
+		top: [right, left, below ],		//right, left, below
+		bottom: [right, left, above ],		//right, left, above
+		center: [right, left, below , above],		//right, left, above, below
+	};
+}
 
-        case 4: 
-            $("#div" + findPost(8)).addClass("movablepiece"); 
-            $("#div" + findPost(3)).addClass("movablepiece"); 
-        break;
-        case 3: 
-            $("#div" + findPost(7)).addClass("movablepiece"); 
-            $("#div" + findPost(2)).addClass("movablepiece");  
-            $("#div" + findPost(4)).addClass("movablepiece");  
-        break;
-        case 2: 
-            $("#div" + findPost(6)).addClass("movablepiece"); 
-            $("#div" + findPost(3)).addClass("movablepiece");  
-            $("#div" + findPost(1)).addClass("movablepiece");  
-        break;
-        case 1: 
-            $("#div" + findPost(5)).addClass("movablepiece"); 
-            $("#div" + findPost(2)).addClass("movablepiece");  
-        break;
-    }    
-  };
+function shuffle(){
+	
+
+	function move(positions){
+		var min = 0;
+		var elements = [];		
+		var max = positions.length-1;
+		var idx = Math.floor(Math.random()*(max-min+1)+min);
+
+		for (var i = max; i >= 0; i--) {
+			elements[i] = getElement(positions[i]);
+		}
+
+		setPosition(elements[idx],{posX:wbX, posY: wbY});
+		setWBPosition(positions[idx]);
+	}
+	//if the whitebox is on the top left corner
+	if(wbX == 0 && wbY == 0){
+		move(specialPositions.top_left);
+	}
+	//if the whitebox is on the top right corner
+	else if(wbX == (puzzleSizeX - pieceX) && wbY == 0){
+		move(specialPositions.top_right);
+	}
+	//if the whitebox is on the bottom left corner
+	else if(wbX == 0 && wbY == (puzzleSizeY - pieceY)){
+		move(specialPositions.bottom_left);
+	}
+	//if the whitebox is on the bottom right corner
+	else if(wbX == (puzzleSizeX - pieceX) && wbY == (puzzleSizeY - pieceY)){
+		move(specialPositions.bottom_right);
+	}
+	//if the whitebox is on the right column
+	else if(wbX == (puzzleSizeX - pieceX)){
+		move(specialPositions.right);
+	}
+	//if the whitebox is on the left column
+	else if(wbX == 0){
+		move(specialPositions.left);
+	}
+	//if the whitebox is on the top row
+	else if(wbY == 0){
+		move(specialPositions.top);
+	}
+	//if the whitebox is on the bottom row
+	else if(wbY == (puzzleSizeY - pieceY)){
+		move(specialPositions.bottom);
+	}
+	//if the whitebox is in other position
+	else{
+		move(specialPositions.center);
+	}
+	refreshPositions();
+}
+
+function showMovables(){
+	$(".movablepiece").each(function(){$(this).unbind("click")});
+	$(".movablepiece").each(function(){$(this).removeClass("movablepiece")});
+
+	function show(positions){
+		for (var i = positions.length-1; i >= 0; i--) {
+			getElement(positions[i]).addClass("movablepiece");
+		}
+	}
+	//if the whitebox is on the top left corner
+	if(wbX == 0 && wbY == 0){
+		show(specialPositions.top_left);
+	}
+	//if the whitebox is on the top right corner
+	else if(wbX == (puzzleSizeX - pieceX) && wbY == 0){
+		show(specialPositions.top_right);
+	}
+	//if the whitebox is on the bottom left corner
+	else if(wbX == 0 && wbY == (puzzleSizeY - pieceY)){
+		show(specialPositions.bottom_left);
+	}
+	//if the whitebox is on the bottom right corner
+	else if(wbX == (puzzleSizeX - pieceX) && wbY == (puzzleSizeY - pieceY)){
+		show(specialPositions.bottom_right);
+	}
+	//if the whitebox is on the right column
+	else if(wbX == (puzzleSizeX - pieceX)){
+		show(specialPositions.right);
+	}
+	//if the whitebox is on the left column
+	else if(wbX == 0){
+		show(specialPositions.left);
+	}
+	//if the whitebox is on the top row
+	else if(wbY == 0){
+		show(specialPositions.top);
+	}
+	//if the whitebox is on the bottom row
+	else if(wbY == (puzzleSizeY - pieceY)){
+		show(specialPositions.bottom);
+	}
+	//if the whitebox is in other position
+	else{
+		show(specialPositions.center);
+	}
+
+	//$(".movablepiece").unbind("click");
+
+	$(".movablepiece").click(function(){
+		
+		//$(".movablepiece").each(function(){$(this).removeClass("movablepiece")});
+		
+		var wb = {posX:wbX, posY: wbY};
+		
+		setWBPosition({posX: $(this).css("left"), posY: $(this).css("top")});
+		setPosition($(this),wb);
+		refreshPositions();
+		showMovables();
+	});
+} 

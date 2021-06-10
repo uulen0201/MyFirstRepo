@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bank Account</title>
+    <link href="account.css" type="text/css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="account.js"></script>
+</head>
+
+<body>
+    <div>
+        <h2>Bank Account</h2>
+    </div>
+    <div class="form">
+        <label for="name"> Name:</label>
+        <input id="name" type="text" name="name" />
+        <label for="number">Number:</label>
+        <input id="number" type="number" name="number" />
+        <button id="searchByNumber">Search by Number</button>
+    </div>  
+    <div class="form">
+        <label for="balance">Min balance :</label>
+        <input id="min" type="number" name="min" />
+        <label for="balance">Max balance :</label>
+        <input id="max" type="number" name="max" />
+        <button id="lookUp">Look Up</button>
+    </div>
+    <div class="loader" id='loader'></div>
+    <div class="content" id="content"></div>
+    <div class="verif">
+        <a href="https://webster.cs.washington.edu/validate-html.php">
+            <img src="img/w3c-html5.png" alt="Valid HTML" />
+        </a>
+        <a href="https://webster.cs.washington.edu/validate-css.php">
+            <img src="img/w3c-css.png" alt="Valid CSS" />
+        </a>
+    </div>
+</body>
+</html>

@@ -40,7 +40,6 @@ function ajaxSuccess(data){
         resultHTML = "<div><p>Not found</p></div>";
     }
     $("#content").append(resultHTML);
-    console.log("dvcdecvnjkdc");
 }
 
 function ajaxFailure(xhr, status, exception){

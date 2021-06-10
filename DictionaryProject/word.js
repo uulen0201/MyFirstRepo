@@ -12,7 +12,7 @@ con.connect(function(err){
     if (err) {
         return console.error('error: ' + err.message);
       }
-    console.log('Connected...');    
+    console.log('Connected!');    
 });
 
 exports.search = function (req,res, paramWord) {

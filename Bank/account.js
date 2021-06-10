@@ -6,7 +6,7 @@ $(document).ready(function() {
         var number = $("input[name='number']").val();
         $.ajax({
             headers: { "Accept": "application/json"},
-            url: "http://localhost:8080/findByNumber",
+            url: "http://localhost:8080/searchByNumber",
             type: "POST",
             data: {'number': number},
             success: ajaxSuccess,
@@ -27,17 +27,6 @@ $(document).ready(function() {
             success: ajaxSuccess,
             error: ajaxFailure
         });
-        /*$.ajax("http://localhost:8080/dictionary.js", {
-            "type": "GET",
-            "data": {"word":word},
-            "success": ajaxSuccess,
-            "error": ajaxFailure
-        });
-        $.ajax("http://localhost:8080/dictionary.js", {
-            "type": "GET",
-            "data": {"word":word},
-        }).done(ajaxSuccess).fail(ajaxFailure);
-        */
     });
 });
 
